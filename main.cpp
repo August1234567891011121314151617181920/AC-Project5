@@ -1,4 +1,6 @@
+#include <memory>
 #include <iostream>
+#include <vector>
 #include "Alligator.h"
 #include "Doggo.h"
 #include "HouseCat.h"
@@ -18,7 +20,7 @@ int main() {
     int age;
     float weight;
     bool albino;
-
+    //this starting bit demonstrates the program
     cout << "Would you like to build an animal? 1 for yes or 0 for no" << endl;
     cin >> userChoice;
 
@@ -92,7 +94,29 @@ int main() {
 
     }
     cout << "**************Enough of those shenanigans. On to polymorphism***************" << endl << endl;
-    
+    //this is where i will demonstrate the polymorphism
+    Alligator alligator1 = Alligator(20,1000,"John",false);
+    Alligator alligator2 = Alligator(15,100,"Jim",false);
+    HouseCat houseCat1 = HouseCat(10,10,"Reginald",false);
+    HouseCat houseCat2 = HouseCat(1,4,"Yung Mike",false);
+    Doggo dog1 = Doggo(10,50,"Rex",false);
+    Doggo dog2 = Doggo(1,7,"Greg",false);
+    //after this step we will have a vector of pointers pointing to different animals
+    vector<unique_ptr<Animal>> vector;
+    vector.push_back(make_unique<Alligator>(alligator1));
+    vector.push_back(make_unique<HouseCat>(houseCat1));
+    vector.push_back(make_unique<Doggo>(dog1));
+    vector.push_back(make_unique<Alligator>(alligator2));
+    vector.push_back(make_unique<HouseCat>(houseCat2));
+    vector.push_back(make_unique<Doggo>(dog2));
+
+    for(int i = 0 ; i < vector.size(); ++i){
+        vector[i]->animalCall();
+    }
+
+
+
+
     return 0;
 }
 
