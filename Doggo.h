@@ -26,7 +26,7 @@ public:
         redoAnimalWeight();
     }
     void redoAnimalWeight() override {
-        if(timesFed == 5){
+        if(timesFed >= 5){
             weight = weight*1.5;
             timesFed = 0;
         }

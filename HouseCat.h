@@ -26,19 +26,13 @@ public:
         redoAnimalWeight();
     }
     void redoAnimalWeight() override {
-        if(timesFed == 3){
+        if(timesFed >= 3){
             weight = weight*1.25;
             timesFed = 0;
         }
     }
     int calculateHappiness() override {
         return (age*weight*3);
-    }
-
-    //other Methods
-    void throwUpHairball(){
-        setWeight(weight-.05);
-        setTimesFed(timesFed-1);
     }
 };
 

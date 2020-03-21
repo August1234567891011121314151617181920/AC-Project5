@@ -25,7 +25,7 @@ public:
         redoAnimalWeight();
     }
     virtual void redoAnimalWeight(){
-        if(timesFed == 10){
+        if(timesFed >= 10){
             weight = weight*1.05;
             timesFed = 0;
         }
