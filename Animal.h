@@ -5,7 +5,6 @@
 #ifndef AC_PROJECT5_ANIMAL_H
 #define AC_PROJECT5_ANIMAL_H
 
-#endif //AC_PROJECT5_ANIMAL_H
 #include <string>
 
 using namespace std;
@@ -13,29 +12,37 @@ using namespace std;
 class Animal {
 protected:
     int timesFed;
-    int weight;
+    int age;
+    float weight;
     string name;
     bool albino;
 
 public:
     //getters
-    int getTimesFed(){
+    int getTimesFed() const{
         return timesFed;
     }
-    int getWeight(){
+    int getAge() const{
+        return age;
+    }
+    float getWeight() const{
         return weight;
     }
-    string getName(){
+    string getName() const{
         return name;
     }
-    bool getAlbino(){
+    bool getAlbino() const{
         return albino;
     }
+
     //setters
     void setTimesFed(int f){
         timesFed = f;
     }
-    void setWeight(int w){
+    void setAge(int a){
+        age = a;
+    }
+    void setWeight(float w){
         weight = w;
     }
     void setName(string n){
@@ -50,6 +57,12 @@ public:
 
     virtual void feedAnimal() = 0;
 
+    virtual void redoAnimalWeight() = 0;
+
+    virtual int calculateHappiness() = 0;
+
     //destructor
     virtual ~Animal(){}
 };
+
+#endif //AC_PROJECT5_ANIMAL_H
