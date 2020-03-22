@@ -18,32 +18,42 @@ void makeDog(vector<unique_ptr<Animal>> &vector);
 
 int main() {
     vector<unique_ptr<Animal>> vect;
-    int userChoice = 0;
+    string userChoice = "yes";
 
     //this starting bit demonstrates the program
     cout << "This program is about building animals." << endl;
     cout << "When you build animals they are put into a vector and I show polymorphism on them later."<<endl;
     cout << "If you dont want to build a bunch of animals just uncomment some code at the bottom of main " << endl;
     cout << "and they will be build automatically." << endl;
-    cout << "Would you like to build an animal? 1 for yes or 0 for no" << endl;
+    cout << "Would you like to build an animal? 'yes' or 'no'" << endl;
     cin >> userChoice;
+    while(userChoice != "yes" and userChoice != "no"){
+        cout << "Please type 'yes' or 'no'" << endl;
+        cin >> userChoice;
+    }
 
-    while (userChoice == 1) {
-        userChoice = 99;
-        while (userChoice > 3 or userChoice < 1) {
-            cout << "which Animal would you like? 1 for alligator, 2 for cat, 3 for dog" << endl;
+    while (userChoice == "yes") {
+        userChoice = "";
+        cout << "Which animal would you like? Type 'alligator', 'cat', or 'dog'" << endl;
+        cin >> userChoice;
+        while (userChoice != "alligator" and userChoice != "cat" and userChoice != "dog") {
+            cout << "Please type 'alligator', 'cat', or 'dog'" << endl;
             cin >> userChoice;
         }
-        if (userChoice == 1) {
+        if (userChoice == "alligator") {
             makeAlligator(vect);
-        } else if (userChoice == 2) {
+        } else if (userChoice == "cat") {
             makeCat(vect);
-        } else if (userChoice == 3) {
+        } else if (userChoice == "dog") {
             makeDog(vect);
         }
 
-        cout << "Would you like to build another animal? 1 for yes or 0 for no" << endl;
+        cout << "Would you like to build another animal? 'yes' or 'no'" << endl;
         cin >> userChoice;
+        while(userChoice != "yes" and userChoice != "no"){
+            cout << "Please type 'yes' or 'no'" << endl;
+            cin >> userChoice;
+        }
     }
     cout << "**************Enough of those shenanigans. On to polymorphism***************" << endl << endl;
     //this is where i will demonstrate the polymorphism
@@ -54,12 +64,12 @@ int main() {
 //    HouseCat houseCat2 = HouseCat(1,4,"Yung Mike",false);
 //    Doggo dog1 = Doggo(10,50,"Rex",false);
 //    Doggo dog2 = Doggo(1,7,"Greg",false);
-//    vector.push_back(make_unique<Alligator>(alligator1));
-//    vector.push_back(make_unique<HouseCat>(houseCat1));
-//    vector.push_back(make_unique<Doggo>(dog1));
-//    vector.push_back(make_unique<Alligator>(alligator2));
-//    vector.push_back(make_unique<HouseCat>(houseCat2));
-//    vector.push_back(make_unique<Doggo>(dog2));
+//    vect.push_back(make_unique<Alligator>(alligator1));
+//    vect.push_back(make_unique<HouseCat>(houseCat1));
+//    vect.push_back(make_unique<Doggo>(dog1));
+//    vect.push_back(make_unique<Alligator>(alligator2));
+//    vect.push_back(make_unique<HouseCat>(houseCat2));
+//    vect.push_back(make_unique<Doggo>(dog2));
 
 
 //this right here is the polymorphism. it loops through the vector of animals
@@ -73,7 +83,7 @@ int main() {
 
     return 0;
 }
-
+//these print the animal attributes
 void printStats(Alligator alligator){
     cout << "ALLIGATOR STATS:" << endl;
     cout << "Name: " << alligator.getName()<< endl;
@@ -96,31 +106,45 @@ void printStats(Doggo dog){
     cout << "Albino: " << boolalpha <<dog.getAlbino()<< endl;
 }
 
+//these make a particular animal and put it in the vector at the end
 void makeAlligator(vector<unique_ptr<Animal>> &vect){
     string name;
     int age;
     float weight;
-    bool albino;
-    int userChoice;
+    string userChoice;
 
     cout << "You want an alligator? ok." << endl;
     cout << "What Should its Name be?" << endl;
     cin >> name;
     cout << "What is its weight?" << endl;
     cin >> weight;
+    while(weight <= 0){
+        cout << "Please input a real weight value" << endl;
+        cin >> weight;
+    }
     cout << "What is its Age?" << endl;
     cin >> age;
-    cout << "Is it albino? (enter 0 for false and 1 for true)" << endl;
-    cin >> albino;
-    Alligator alligator = Alligator(age,weight,name,albino);
-    cout << "Would you like to feed him/her? (If you feed them enough they grow) 1 for yes and 0 for no" << endl;
+    while(age <= 0){
+        cout << "Please input a real age value" << endl;
+        cin >> age;
+    }
+    Alligator alligator = Alligator(age,weight,name,false);
+    cout << "Would you like to feed him/her? (If you feed them enough they grow) 'yes' or 'no'" << endl;
     cin >> userChoice;
-    while(userChoice != 0){
+    while(userChoice != "yes" and userChoice != "no"){
+        cout << "Please type 'yes' or 'no'" << endl;
+        cin >> userChoice;
+    }
+    while(userChoice == "yes"){
         alligator.feedAnimal();
         alligator.animalCall();
         printStats(alligator);
-        cout << "If you want to stop feeding "<< name << " type 0." << endl;
+        cout << "Would you like to feed him/her again? 'yes' or 'no'" << endl;
         cin >> userChoice;
+        while(userChoice != "yes" and userChoice != "no"){
+            cout << "Please type 'yes' or 'no'" << endl;
+            cin >> userChoice;
+        }
     }
     vect.push_back(make_unique<Alligator>(alligator));
 }
@@ -128,27 +152,40 @@ void makeCat(vector<unique_ptr<Animal>> &vect){
     string name;
     int age;
     float weight;
-    bool albino;
-    int userChoice;
+    string userChoice;
 
     cout << "You want a cat? ok." << endl;
     cout << "What Should its Name be?" << endl;
     cin >> name;
     cout << "What is its weight?" << endl;
     cin >> weight;
+    while(weight <= 0){
+        cout << "Please input a real weight value" << endl;
+        cin >> weight;
+    }
     cout << "What is its Age?" << endl;
     cin >> age;
-    cout << "Is it albino? (enter 0 for false and 1 for true)" << endl;
-    cin >> albino;
-    HouseCat cat = HouseCat(age,weight,name,albino);
-    cout << "Would you like to feed him/her? (If you feed them enough they grow) 1 for yes and 0 for no" << endl;
+    while(age <= 0){
+        cout << "Please input a real age value" << endl;
+        cin >> age;
+    }
+    HouseCat cat = HouseCat(age,weight,name,false);
+    cout << "Would you like to feed him/her? (If you feed them enough they grow) 'yes' or 'no'" << endl;
     cin >> userChoice;
-    while(userChoice != 0){
+    while(userChoice != "yes" and userChoice != "no"){
+        cout << "Please type 'yes' or 'no'" << endl;
+        cin >> userChoice;
+    }
+    while(userChoice == "yes"){
         cat.feedAnimal();
         cat.animalCall();
         printStats(cat);
-        cout << "If you want to stop feeding "<< name << " type 0." << endl;
+        cout << "Would you like to feed him/her again? 'yes' or 'no'" << endl;
         cin >> userChoice;
+        while(userChoice != "yes" and userChoice != "no"){
+            cout << "Please type 'yes' or 'no'" << endl;
+            cin >> userChoice;
+        }
     }
     vect.push_back(make_unique<HouseCat>(cat));
 }
@@ -156,27 +193,40 @@ void makeDog(vector<unique_ptr<Animal>> &vect){
     string name;
     int age;
     float weight;
-    bool albino;
-    int userChoice;
+    string userChoice;
 
     cout << "You want a dog? ok." << endl;
     cout << "What Should its Name be?" << endl;
     cin >> name;
     cout << "What is its weight?" << endl;
     cin >> weight;
+    while(weight <= 0){
+        cout << "Please input a real weight value" << endl;
+        cin >> weight;
+    }
     cout << "What is its Age?" << endl;
     cin >> age;
-    cout << "Is it albino? (enter 0 for false and 1 for true)" << endl;
-    cin >> albino;
-    Doggo dog = Doggo(age,weight,name,albino);
-    cout << "Would you like to feed him/her? (If you feed them enough they grow) 1 for yes and 0 for no" << endl;
+    while(age <= 0){
+        cout << "Please input a real age value" << endl;
+        cin >> age;
+    }
+    Doggo dog = Doggo(age,weight,name,false);
+    cout << "Would you like to feed him/her? (If you feed them enough they grow) 'yes' or 'no'" << endl;
     cin >> userChoice;
-    while(userChoice != 0){
+    while(userChoice != "yes" and userChoice != "no"){
+        cout << "Please type 'yes' or 'no'" << endl;
+        cin >> userChoice;
+    }
+    while(userChoice == "yes"){
         dog.feedAnimal();
         dog.animalCall();
         printStats(dog);
-        cout << "If you want to stop feeding "<< name << " type 0." << endl;
+        cout << "Would you like to feed him/her again? 'yes' or 'no'" << endl;
         cin >> userChoice;
+        while(userChoice != "yes" and userChoice != "no"){
+            cout << "Please type 'yes' or 'no'" << endl;
+            cin >> userChoice;
+        }
     }
     vect.push_back(make_unique<Doggo>(dog));
 }
